@@ -1,9 +1,4 @@
-Here is a sample `README.md` file for your e-commerce shopping cart application:
-
-```md
 # Ecommerce Shopping Cart Application
-
-## Overview
 
 This is a simple e-commerce shopping cart application built using **ReactJS** and **Tailwind CSS**. The application allows users to browse products, add them to their cart, and manage the items in the cart. The cart page provides functionality for adjusting product quantities, removing items, and displaying a summary of the total price.
 
