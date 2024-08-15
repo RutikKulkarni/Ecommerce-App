@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../components/Card/Card";
+import Search from "../../components/Search/Search";
 import { fetchProducts } from "../../utils/api";
 import ReactPaginate from "react-paginate";
 
@@ -20,6 +21,13 @@ const Home = ({ addToCart }) => {
     });
   }, []);
 
+  const handleSearch = (term) => {
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(term.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
   const pageCount = Math.ceil(filteredProducts.length / productsPerPage);
 
   const changePage = ({ selected }) => {
@@ -35,11 +43,16 @@ const Home = ({ addToCart }) => {
         </div>
       ) : (
         <>
+          <Search searchProducts={handleSearch} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             {filteredProducts
               .slice(pagesVisited, pagesVisited + productsPerPage)
               .map((product) => (
-                <Card key={product.id} product={product} addToCart={addToCart} />
+                <Card
+                  key={product.id}
+                  product={product}
+                  addToCart={addToCart}
+                />
               ))}
           </div>
           <div className="flex justify-center mt-10">
@@ -49,11 +62,17 @@ const Home = ({ addToCart }) => {
               pageCount={pageCount}
               onPageChange={changePage}
               containerClassName={"flex items-center space-x-2"}
-              previousLinkClassName={"px-3 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"}
-              nextLinkClassName={"px-3 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"}
+              previousLinkClassName={
+                "px-3 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+              }
+              nextLinkClassName={
+                "px-3 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+              }
               disabledClassName={"opacity-50 cursor-not-allowed"}
               activeClassName={"bg-blue-500 text-white rounded-md px-3 py-2"}
-              pageLinkClassName={"px-3 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"}
+              pageLinkClassName={
+                "px-3 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+              }
             />
           </div>
         </>
