@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
@@ -28,10 +28,10 @@ const App = () => {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        <Navbar />
+        <Navbar cartCount={cartItems.length} />
         <div className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home addToCart={handleAddToCart} />} />
             <Route
               path="/cart"
               element={
