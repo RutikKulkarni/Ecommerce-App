@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CartItem from "../../components/CartItem/CartItem";
 import CheckoutPopup from "../../components/Popup/CheckoutPopup";
+import { v4 as uuidv4 } from 'uuid'; 
 
 const Cart = ({ cartItems, updateQuantity, removeItem }) => {
   const [showCheckout, setShowCheckout] = useState(false);
@@ -11,7 +12,7 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
       .toFixed(2);
   };
 
-  const handlePlaceOrder = (formData) => {
+  const handlePlaceOrder = async (formData) => {
     const orderItems = cartItems.map((item) => ({
       id: item.id,
       name: item.title,
@@ -19,13 +20,20 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
       quantity: item.quantity,
     }));
 
-    window.location.href = `/orders?name=${formData.name}&email=${
-      formData.email
-    }&mobile=${formData.mobile}&address=${
-      formData.address
-    }&total=${calculateTotal()}&items=${encodeURIComponent(
-      JSON.stringify(orderItems)
-    )}`;
+    const orderToken = uuidv4();
+
+    await fetch('/api/createOrder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: orderToken,
+        formData,
+        total: calculateTotal(),
+        items: orderItems,
+      }),
+    });
+
+    window.location.href = `/orders/confirm?token=${orderToken}`;
   };
 
   return (
