@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
+import Orders from "./pages/Orders/Orders";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import { addToCart, updateQuantity, removeFromCart } from "./utils/cart";
@@ -42,6 +43,7 @@ const App = () => {
                 />
               }
             />
+            <Route path="/orders" element={<Orders />} />
           </Routes>
         </div>
         <Footer />

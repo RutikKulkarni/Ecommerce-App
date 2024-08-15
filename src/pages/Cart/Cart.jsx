@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CartItem from "../../components/CartItem/CartItem";
 import CheckoutPopup from "../../components/Popup/CheckoutPopup";
-import { v4 as uuidv4 } from 'uuid'; 
+import { v4 as uuidv4 } from "uuid";
 
 const Cart = ({ cartItems, updateQuantity, removeItem }) => {
   const [showCheckout, setShowCheckout] = useState(false);
@@ -22,9 +22,9 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
 
     const orderToken = uuidv4();
 
-    await fetch('/api/createOrder', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    await fetch("/api/createOrder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         token: orderToken,
         formData,
