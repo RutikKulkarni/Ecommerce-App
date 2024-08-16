@@ -57,26 +57,29 @@ const Home = ({ addToCart }) => {
           </div>
           <div className="flex justify-center mt-10 mb-12">
             <ReactPaginate
-              previousLabel={"← Previous"}
-              nextLabel={"Next →"}
+              previousLabel={"<<"}
+              nextLabel={">>"}
               pageCount={pageCount}
               onPageChange={changePage}
               containerClassName={
-                "flex items-center space-x-3 bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm"
+                "flex flex-wrap justify-center items-center space-x-2 bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm"
               }
               previousLinkClassName={
-                "px-4 py-2 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
+                "px-3 py-1 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
               }
               nextLinkClassName={
-                "px-4 py-2 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
+                "px-3 py-1 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
               }
               disabledClassName={"opacity-50 cursor-not-allowed"}
               activeClassName={
-                "bg-gray-300 text-gray-800 rounded-md px-4 py-2 shadow-md"
+                "bg-gray-300 text-gray-800 rounded-md px-3 py-1 shadow-md"
               }
               pageLinkClassName={
-                "px-4 py-2 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
+                "px-3 py-1 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
               }
+              breakLabel="..."
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={2}
             />
           </div>
         </>
