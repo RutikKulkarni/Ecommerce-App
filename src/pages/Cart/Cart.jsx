@@ -12,7 +12,7 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
       .toFixed(2);
   };
 
-  const handlePlaceOrder = async (formData) => {
+  const handlePlaceOrder = (formData) => {
     const orderItems = cartItems.map((item) => ({
       id: item.id,
       name: item.title,
@@ -20,20 +20,13 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
       quantity: item.quantity,
     }));
 
-    const orderToken = uuidv4();
-
-    await fetch("/api/createOrder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: orderToken,
-        formData,
-        total: calculateTotal(),
-        items: orderItems,
-      }),
-    });
-
-    window.location.href = `/orders/confirm?token=${orderToken}`;
+    window.location.href = `/orders?name=${formData.name}&email=${
+      formData.email
+    }&mobile=${formData.mobile}&address=${
+      formData.address
+    }&total=${calculateTotal()}&items=${encodeURIComponent(
+      JSON.stringify(orderItems)
+    )}`;
   };
 
   return (
