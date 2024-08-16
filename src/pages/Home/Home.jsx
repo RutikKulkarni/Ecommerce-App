@@ -3,6 +3,7 @@ import Card from "../../components/Card/Card";
 import Search from "../../components/Search/Search";
 import { fetchProducts } from "../../utils/api";
 import ReactPaginate from "react-paginate";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Home = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
@@ -35,16 +36,16 @@ const Home = ({ addToCart }) => {
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container justify-center mx-auto p-6">
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
-          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-600"></div>
-          <div className="text-2xl text-gray-700">Loading...</div>
+        <div className="flex flex-col justify-center items-center h-screen space-y-4">
+          <div className="animate-spin rounded-full border-4 border-t-4 border-blue-600 h-12 w-12"></div>
+          <div className="text-xl text-gray-700">Loading...</div>
         </div>
       ) : (
         <>
           <Search searchProducts={handleSearch} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {filteredProducts
               .slice(pagesVisited, pagesVisited + productsPerPage)
               .map((product) => (
@@ -57,26 +58,26 @@ const Home = ({ addToCart }) => {
           </div>
           <div className="flex justify-center mt-10 mb-12">
             <ReactPaginate
-              previousLabel={"<<"}
-              nextLabel={">>"}
+              previousLabel={
+                <span className="flex items-center space-x-2 text-gray-500 hover:text-blue-600">
+                  <FaChevronLeft className="h-5 w-5" />
+                  <span className="hidden md:inline">Previous</span>
+                </span>
+              }
+              nextLabel={
+                <span className="flex items-center space-x-2 text-gray-500 hover:text-blue-600">
+                  <span className="hidden md:inline">Next</span>
+                  <FaChevronRight className="h-5 w-5" />
+                </span>
+              }
               pageCount={pageCount}
               onPageChange={changePage}
-              containerClassName={
-                "flex flex-wrap justify-center items-center space-x-2 bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm"
-              }
-              previousLinkClassName={
-                "px-3 py-1 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
-              }
-              nextLinkClassName={
-                "px-3 py-1 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
-              }
-              disabledClassName={"opacity-50 cursor-not-allowed"}
-              activeClassName={
-                "bg-gray-300 text-gray-800 rounded-md px-3 py-1 shadow-md"
-              }
-              pageLinkClassName={
-                "px-3 py-1 text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-200"
-              }
+              containerClassName="flex space-x-2"
+              previousLinkClassName="flex items-center space-x-2 font-medium"
+              nextLinkClassName="flex items-center space-x-2 font-medium"
+              disabledClassName="text-gray-300 cursor-not-allowed"
+              activeClassName="text-blue-600"
+              pageLinkClassName="px-4 py-2 border border-gray-300 rounded-full hover:bg-blue-600 hover:text-white"
               breakLabel="..."
               marginPagesDisplayed={1}
               pageRangeDisplayed={2}

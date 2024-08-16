@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import CartItem from "../../components/CartItem/CartItem";
 import CheckoutPopup from "../../components/Popup/CheckoutPopup";
+import BillingInfo from "../../components/BillingInfo/BillingInfo";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-toastify";
 
 const Cart = ({ cartItems, updateQuantity, removeItem }) => {
   const [showCheckout, setShowCheckout] = useState(false);
@@ -35,48 +35,52 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
     };
 
     localStorage.setItem(`order-${orderId}`, JSON.stringify(orderDetails));
-
     window.location.href = `/orders?orderId=${orderId}`;
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-4xl font-bold text-gray-900 mb-8">Your Cart</h1>
-      {cartItems.length === 0 ? (
-        <p className="text-gray-500 text-lg">Your cart is empty.</p>
-      ) : (
-        <>
-          <div className="grid gap-6 mb-8">
-            {cartItems.map((item) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                updateQuantity={updateQuantity}
-                removeItem={removeItem}
-              />
-            ))}
+    <section className="bg-white py-8 antialiased md:py-16">
+      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl">
+          Shopping Cart
+        </h2>
+        <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+          <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+            <div className="space-y-6">
+              {cartItems.length === 0 ? (
+                <p className="text-gray-500 text-lg">Your cart is empty.</p>
+              ) : (
+                <div className="grid gap-6">
+                  {cartItems.map((item) => (
+                    <CartItem
+                      key={item.id}
+                      item={item}
+                      updateQuantity={updateQuantity}
+                      removeItem={removeItem}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center bg-white shadow-lg border border-gray-200 rounded-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-700">
-              Total: <span className="text-blue-600">${calculateTotal()}</span>
-            </h2>
-            <button
-              onClick={() => setShowCheckout(true)}
-              className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200"
-            >
-              Checkout
-            </button>
-          </div>
-          {showCheckout && (
-            <CheckoutPopup
-              totalAmount={calculateTotal()}
-              onClose={() => setShowCheckout(false)}
-              onPlaceOrder={handlePlaceOrder}
+
+          <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
+            <BillingInfo
+              cartItems={cartItems}
+              calculateTotal={calculateTotal}
+              onCheckout={() => setShowCheckout(true)}
             />
-          )}
-        </>
-      )}
-    </div>
+            {showCheckout && (
+              <CheckoutPopup
+                totalAmount={calculateTotal()}
+                onClose={() => setShowCheckout(false)}
+                onPlaceOrder={handlePlaceOrder}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

@@ -8,33 +8,60 @@ const Card = ({ product, addToCart }) => {
 
   return (
     <div className="bg-white border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out flex flex-col justify-between h-full">
-      <div>
+      <a
+        className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
+        href="#"
+      >
         <img
           src={product.image}
           alt={product.title}
-          className="h-48 w-full object-contain mb-4 rounded-lg"
+          className="h-64 w-full object-contain"
         />
-        <h2 className="font-semibold text-xl text-gray-800 mb-2 line-clamp-2">
-          {product.title}
-        </h2>
-        <div className="flex mb-3">
-          {[...Array(filledStars)].map((_, index) => (
-            <FaStar key={index} className="text-yellow-400" />
-          ))}
-          {[...Array(emptyStars)].map((_, index) => (
-            <FaStar key={index} className="text-gray-300" />
-          ))}
+        <span className="absolute top-0 left-0 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+          10% OFF
+        </span>
+        {product.discount && (
+          <span className="absolute top-0 left-0 m-1 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+            {product.discount}% OFF
+          </span>
+        )}
+      </a>
+      <div className="flex-1 mt-4 ">
+        <a href="#">
+          <h5 className="text-xl tracking-tight text-slate-900 line-clamp-2">
+            {product.title}
+          </h5>
+        </a>
+        <div className="mt-2 mb-5 flex items-center justify-between">
+          <p>
+            <span className="text-3xl font-bold text-slate-900">
+              ${product.price.toFixed(2)}
+            </span>
+            {product.originalPrice && (
+              <span className="ml-2 text-sm text-slate-900 line-through">
+                ${product.originalPrice.toFixed(2)}
+              </span>
+            )}
+          </p>
+          <div className="flex items-center">
+            {/* {[...Array(filledStars)].map((_, index) => (
+              <FaStar key={index} className="h-5 w-5 text-yellow-300" />
+            ))}
+            {[...Array(emptyStars)].map((_, index) => (
+              <FaStar key={index} className="h-5 w-5 text-gray-300" />
+            ))} */}
+            <span className="ml-3 bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold rounded">
+              {product.rating.rate}
+            </span>
+          </div>
         </div>
-        <p className="font-semibold text-lg text-gray-900">
-          ${product.price.toFixed(2)}
-        </p>
       </div>
       <Button
         text="Add to Cart"
         icon={<FaCartPlus />}
         onClick={() => addToCart(product)}
         fullWidth={true}
-        className="bg-blue-600 hover:bg-blue-700 text-white mt-4 py-2 px-4 rounded-lg w-full transition-colors duration-300 ease-in-out"
+        className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 transition duration-300 ease-in-out"
       />
     </div>
   );
