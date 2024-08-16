@@ -14,7 +14,7 @@ const Search = ({ searchProducts }) => {
 
   return (
     <div className="relative w-full max-w-md mx-auto my-10">
-      <div className="flex items-center bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="flex items-center bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden">
         <span className="pl-4 text-gray-500">
           <FiSearch className="w-6 h-6" />
         </span>

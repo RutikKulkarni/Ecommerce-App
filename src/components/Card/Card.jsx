@@ -1,5 +1,5 @@
 import React from "react";
-import { FaStar, FaShoppingCart } from "react-icons/fa";
+import { FaStar, FaCartPlus } from "react-icons/fa";
 import Button from "../Button/Button";
 
 const Card = ({ product, addToCart }) => {
@@ -31,7 +31,7 @@ const Card = ({ product, addToCart }) => {
       </div>
       <Button
         text="Add to Cart"
-        icon={<FaShoppingCart />}
+        icon={<FaCartPlus />}
         onClick={() => addToCart(product)}
         fullWidth={true}
         className="bg-blue-600 hover:bg-blue-700 text-white mt-4 py-2 px-4 rounded-lg w-full transition-colors duration-300 ease-in-out"

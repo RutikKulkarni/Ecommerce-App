@@ -46,7 +46,7 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
         <p className="text-gray-500 text-lg">Your cart is empty.</p>
       ) : (
         <>
-          <div className="grid gap-6">
+          <div className="grid gap-6 mb-8">
             {cartItems.map((item) => (
               <CartItem
                 key={item.id}
@@ -56,7 +56,7 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
               />
             ))}
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center mt-10 p-4 bg-white shadow-lg rounded-lg">
+          <div className="flex flex-col md:flex-row justify-between items-center bg-white shadow-lg border border-gray-200 rounded-lg p-6">
             <h2 className="text-2xl font-semibold text-gray-700">
               Total: <span className="text-blue-600">${calculateTotal()}</span>
             </h2>
