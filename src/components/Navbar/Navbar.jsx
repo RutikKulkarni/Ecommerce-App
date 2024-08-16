@@ -13,25 +13,20 @@ const Navbar = ({ cartCount }) => {
         </div>
 
         <div className="flex items-center space-x-6">
-          <Link
-            to="/orders"
-            className="flex items-center space-x-2 text-gray-700 hover:text-blue-500 transition duration-300"
-          >
-            <IoBagCheck className="w-5 h-5" />
-            <span className="text-sm font-medium">Orders</span>
-          </Link>
-
           <div className="relative">
             <Link
               to="/cart"
-              className="flex items-center space-x-2 text-gray-700 hover:text-blue-500 transition duration-300"
+              className="relative flex items-center space-x-2 text-gray-700 hover:text-blue-500 transition duration-300"
             >
-              <IoCart className="w-6 h-6" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex justify-center items-center">
-                  {cartCount}
-                </span>
-              )}
+              <div className="relative">
+                <IoCart className="w-6 h-6" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex justify-center items-center">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
+              <span className="text-sm font-medium">Cart</span>
             </Link>
           </div>
         </div>

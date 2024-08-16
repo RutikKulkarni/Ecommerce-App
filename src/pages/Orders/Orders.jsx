@@ -5,15 +5,9 @@ const Orders = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
 
-  const order = {
-    name: query.get("name"),
-    email: query.get("email"),
-    mobile: query.get("mobile"),
-    address: query.get("address"),
-    total: query.get("total"),
-    paymentMethod: query.get("paymentMethod"),
-    items: JSON.parse(decodeURIComponent(query.get("items") || "[]")),
-  };
+  const orderId = query.get("orderId");
+
+  const order = JSON.parse(localStorage.getItem(`order-${orderId}`)) || {};
 
   return (
     <div className="container mx-auto p-4 md:p-8">
@@ -48,12 +42,11 @@ const Orders = () => {
             {order.paymentMethod}
           </p>
         </div>
-        {/* <h3 className="text-xl font-semibold text-gray-700 mb-2">Purchased Items:</h3> */}
         <h2 className="text-2xl font-semibold text-gray-700">
           Purchased Items
         </h2>
         <ul className="divide-y divide-gray-200">
-          {order.items.map((item) => (
+          {order.items?.map((item) => (
             <li
               key={item.id}
               className="py-4 flex flex-col md:flex-row md:justify-between"

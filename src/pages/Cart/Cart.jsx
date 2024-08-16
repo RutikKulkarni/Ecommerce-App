@@ -21,13 +21,22 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
       quantity: item.quantity,
     }));
 
-    window.location.href = `/orders?name=${formData.name}&email=${
-      formData.email
-    }&mobile=${formData.mobile}&address=${
-      formData.address
-    }&total=${calculateTotal()}&items=${encodeURIComponent(
-      JSON.stringify(orderItems)
-    )}`;
+    const orderId = uuidv4();
+
+    const orderDetails = {
+      id: orderId,
+      name: formData.name,
+      email: formData.email,
+      mobile: formData.mobile,
+      address: formData.address,
+      paymentMethod: formData.paymentMethod,
+      total: calculateTotal(),
+      items: orderItems,
+    };
+
+    localStorage.setItem(`order-${orderId}`, JSON.stringify(orderDetails));
+
+    window.location.href = `/orders?orderId=${orderId}`;
   };
 
   return (
