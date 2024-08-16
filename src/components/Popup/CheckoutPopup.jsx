@@ -18,7 +18,7 @@ const CheckoutPopup = ({ totalAmount, onClose, onPlaceOrder }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onPlaceOrder(formData);
-    toast.success("Order placed successfully!");
+    toast.success("Your order has been placed successfully.");
     onClose();
   };
 
@@ -131,7 +131,8 @@ const CheckoutPopup = ({ totalAmount, onClose, onPlaceOrder }) => {
           <div className="pt-4 border-t border-gray-200">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-800">
-                Total Amount: <span className="text-blue-600">${totalAmount}</span>
+                Total Amount:{" "}
+                <span className="text-blue-600">${totalAmount}</span>
               </h3>
             </div>
             <div className="flex justify-end space-x-3">

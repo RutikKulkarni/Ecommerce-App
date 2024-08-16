@@ -5,6 +5,8 @@ import Cart from "./pages/Cart/Cart";
 import Orders from "./pages/Orders/Orders";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { addToCart, updateQuantity, removeFromCart } from "./utils/cart";
 
 const App = () => {
@@ -14,8 +16,10 @@ const App = () => {
     const isProductInCart = cartItems.some((item) => item.id === product.id);
 
     if (isProductInCart) {
+      toast.info("This product is already in your cart.");
     } else {
       setCartItems((prevCart) => addToCart(prevCart, product));
+      toast.success("Product successfully added to your cart.");
     }
   };
 
@@ -25,6 +29,7 @@ const App = () => {
 
   const handleRemoveItem = (productId) => {
     setCartItems((prevCart) => removeFromCart(prevCart, productId));
+    toast.info("Product has been removed from your cart.");
   };
   return (
     <Router>
@@ -46,6 +51,7 @@ const App = () => {
             <Route path="/orders" element={<Orders />} />
           </Routes>
         </div>
+        {/* <ToastContainer position="bottom-right" /> */}
         <Footer />
       </div>
     </Router>

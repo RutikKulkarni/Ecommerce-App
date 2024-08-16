@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CartItem from "../../components/CartItem/CartItem";
 import CheckoutPopup from "../../components/Popup/CheckoutPopup";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
 const Cart = ({ cartItems, updateQuantity, removeItem }) => {
   const [showCheckout, setShowCheckout] = useState(false);
