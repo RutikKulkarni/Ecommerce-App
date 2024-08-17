@@ -12,6 +12,7 @@ const Home = ({ addToCart }) => {
   const [pageNumber, setPageNumber] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const productsPerPage = 8;
   const pagesVisited = pageNumber * productsPerPage;
@@ -24,11 +25,16 @@ const Home = ({ addToCart }) => {
     });
   }, []);
 
-  const handleSearch = (term) => {
+  useEffect(() => {
     const filtered = products.filter((product) =>
-      product.title.toLowerCase().includes(term.toLowerCase())
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredProducts(filtered);
+    setPageNumber(0);
+  }, [searchTerm, products]);
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
   };
 
   const pageCount = Math.ceil(filteredProducts.length / productsPerPage);
