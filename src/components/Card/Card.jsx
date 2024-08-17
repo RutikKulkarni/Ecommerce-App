@@ -2,12 +2,22 @@ import React from "react";
 import { FaStar, FaCartPlus } from "react-icons/fa";
 import Button from "../Button/Button";
 
-const Card = ({ product, addToCart }) => {
+const Card = ({ product, addToCart, openPopup }) => {
   const filledStars = Math.floor(product.rating.rate);
   const emptyStars = 5 - filledStars;
 
+  const handleCardClick = (e) => {
+    if (e.target.closest(".add-to-cart-button")) {
+      return;
+    }
+    openPopup(product);
+  };
+
   return (
-    <div className="bg-white border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out flex flex-col justify-between h-full">
+    <div
+      className="bg-white border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out flex flex-col justify-between h-full cursor-pointer"
+      onClick={handleCardClick}
+    >
       <a
         className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
         href="#"
@@ -44,12 +54,6 @@ const Card = ({ product, addToCart }) => {
             )}
           </p>
           <div className="flex items-center">
-            {/* {[...Array(filledStars)].map((_, index) => (
-              <FaStar key={index} className="h-5 w-5 text-yellow-300" />
-            ))}
-            {[...Array(emptyStars)].map((_, index) => (
-              <FaStar key={index} className="h-5 w-5 text-gray-300" />
-            ))} */}
             <span className="ml-3 bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold rounded">
               {product.rating.rate}
             </span>
@@ -59,9 +63,12 @@ const Card = ({ product, addToCart }) => {
       <Button
         text="Add to Cart"
         icon={<FaCartPlus />}
-        onClick={() => addToCart(product)}
+        onClick={(e) => {
+          e.stopPropagation();
+          addToCart(product);
+        }}
         fullWidth={true}
-        className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 transition duration-300 ease-in-out"
+        className="add-to-cart-button flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 transition duration-300 ease-in-out"
       />
     </div>
   );

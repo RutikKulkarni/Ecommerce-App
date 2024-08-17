@@ -4,12 +4,14 @@ import Search from "../../components/Search/Search";
 import { fetchProducts } from "../../utils/api";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Popup from "../../components/Popup/Popup";
 
 const Home = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const productsPerPage = 8;
   const pagesVisited = pageNumber * productsPerPage;
@@ -35,6 +37,14 @@ const Home = ({ addToCart }) => {
     setPageNumber(selected);
   };
 
+  const openPopup = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const closePopup = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <div className="container justify-center mx-auto p-6">
       {loading ? (
@@ -52,6 +62,7 @@ const Home = ({ addToCart }) => {
                 <Card
                   key={product.id}
                   product={product}
+                  openPopup={openPopup}
                   addToCart={addToCart}
                 />
               ))}
@@ -83,6 +94,13 @@ const Home = ({ addToCart }) => {
               pageRangeDisplayed={2}
             />
           </div>
+          {selectedProduct && (
+            <Popup
+              product={selectedProduct}
+              onClose={closePopup}
+              addToCart={addToCart}
+            />
+          )}
         </>
       )}
     </div>
