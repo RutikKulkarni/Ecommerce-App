@@ -32,12 +32,14 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
             </button>
           </div>
           <div className="text-end md:order-4 md:w-32">
-            <p className="text-base font-bold text-gray-900">${item.price.toFixed(2)}</p>
+            <p className="text-base font-bold text-gray-900">
+              ${item.price.toFixed(2)}
+            </p>
           </div>
         </div>
 
         <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-          <a href="#" className="text-base font-medium text-gray-900 hover:underline">
+          <a href="#" className="text-base font-medium text-gray-900">
             {item.title}
           </a>
 
@@ -45,7 +47,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
             <button
               type="button"
               onClick={() => removeItem(item.id)}
-              className="inline-flex items-center text-sm font-medium text-red-600 hover:underline"
+              className="inline-flex items-center text-sm font-medium text-red-600"
             >
               <FaTrash />
               Remove
