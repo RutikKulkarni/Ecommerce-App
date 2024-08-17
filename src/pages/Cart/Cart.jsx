@@ -13,6 +13,12 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
       .toFixed(2);
   };
 
+  const discountedTotal = () => {
+    const total = calculateTotal();
+    const discount = total * 0.1;
+    return (total - discount).toFixed(2);
+  };
+
   const handlePlaceOrder = (formData) => {
     const orderItems = cartItems.map((item) => ({
       id: item.id,
@@ -30,12 +36,20 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
       mobile: formData.mobile,
       address: formData.address,
       paymentMethod: formData.paymentMethod,
-      total: calculateTotal(),
+      total: discountedTotal(),
       items: orderItems,
     };
 
     localStorage.setItem(`order-${orderId}`, JSON.stringify(orderDetails));
     window.location.href = `/orders?orderId=${orderId}`;
+  };
+
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty. Please add items to proceed to checkout.");
+    } else {
+      setShowCheckout(true);
+    }
   };
 
   return (
@@ -68,11 +82,12 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
             <BillingInfo
               cartItems={cartItems}
               calculateTotal={calculateTotal}
-              onCheckout={() => setShowCheckout(true)}
+              discountedTotal={discountedTotal}
+              onCheckout={handleCheckout}
             />
             {showCheckout && (
               <CheckoutPopup
-                totalAmount={calculateTotal()}
+                totalAmount={discountedTotal()}
                 onClose={() => setShowCheckout(false)}
                 onPlaceOrder={handlePlaceOrder}
               />
