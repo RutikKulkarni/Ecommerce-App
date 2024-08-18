@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import NotificationUtils from "../../utils/notifications";
 
 const CheckoutPopup = ({ totalAmount, onClose, onPlaceOrder }) => {
   const [formData, setFormData] = useState({
@@ -9,6 +9,7 @@ const CheckoutPopup = ({ totalAmount, onClose, onPlaceOrder }) => {
     address: "",
     paymentMethod: "UPI",
   });
+  const { showSuccess } = NotificationUtils();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,7 +19,7 @@ const CheckoutPopup = ({ totalAmount, onClose, onPlaceOrder }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onPlaceOrder(formData);
-    toast.success("Your order has been placed successfully.");
+    showSuccess("Your order has been placed successfully.");
     onClose();
   };
 

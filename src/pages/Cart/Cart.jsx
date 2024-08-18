@@ -3,10 +3,11 @@ import CartItem from "../../components/CartItem/CartItem";
 import CheckoutPopup from "../../components/Popup/CheckoutPopup";
 import BillingInfo from "../../components/BillingInfo/BillingInfo";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-toastify";
+import NotificationUtils from "../../utils/notifications";
 
 const Cart = ({ cartItems, updateQuantity, removeItem }) => {
   const [showCheckout, setShowCheckout] = useState(false);
+  const { showError } = NotificationUtils();
 
   const calculateTotal = () => {
     return cartItems
@@ -47,9 +48,7 @@ const Cart = ({ cartItems, updateQuantity, removeItem }) => {
 
   const handleCheckout = () => {
     if (cartItems.length === 0) {
-      toast.error(
-        "Your cart is empty. Please add items to proceed to checkout."
-      );
+      showError("Your cart is empty. Please add items to proceed to checkout.");
     } else {
       setShowCheckout(true);
     }
